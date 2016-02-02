@@ -1,0 +1,79 @@
+/*<modal>---------------------------------------------------------------------*/
+.cart-basket {
+  position: fixed;
+  z-index: 50;
+  top: 0;
+  right: 0;
+  left: 0;
+
+  width: 25%;
+  margin: auto;
+
+  text-align: left;
+
+  background-color: none;
+}
+
+.spinner {
+  position: fixed;
+  z-index: 9999;
+  top: 50%;
+  left: 50%;
+
+  display: block;
+  overflow: hidden;
+
+  text-align: center;
+}
+
+.modal__wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  
+  z-index: 11;
+
+  background-color: $clrTransparent25;
+}
+
+.u-display--none {
+  display: none;
+}
+
+.modal__btn-close {
+  position: absolute;
+  display: inline-block;
+  z-index: 12;
+  
+  top: 0;
+  right: -2.125rem;
+  
+  font-size: 1rem;
+  padding: 0 1rem 1rem 0;
+  
+  color: #fff;
+
+  cursor: pointer;
+  transition: opacity .25s ease;
+  
+  user-select: none;
+  opacity: .5;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.modal__body {
+  position: relative;
+  z-index: 12;
+  
+  margin: 3rem;
+  padding: 1rem;
+
+  // overflow: auto;
+  
+  background-color: #fff;
+}

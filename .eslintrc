@@ -1,0 +1,16 @@
+{
+  "extends": "eslint-config-airbnb/base",
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true
+  },
+  "globals": {
+    "$": true
+  },
+  "rules": {
+    "id-length": 0,
+    "comma-dangle": 0,
+    "camelcase": 0,
+    "object-curly-spacing": [2, "never"]
+  }
+}
