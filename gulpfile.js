@@ -129,7 +129,7 @@ gulp.task('css', function() {
 });
 
 gulp.task('stylus', function() {
-  return gulp.src(config.srcRoot + 'styles/main.styl')
+  return gulp.src(config.srcRoot + 'styles/bundle.styl')
     .pipe($.plumber({
         errorHandler: plumberErrorHandler
     }))
