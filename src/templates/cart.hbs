@@ -1,4 +1,3 @@
-<h1 class="">Банкетное меню</h1>
 <table class="cart-table">
   <thead>
     <tr class="cart-table__caption">
@@ -6,7 +5,7 @@
       <td>Название</td>
       <td>Цена</td>
       <td>Количество</td>
-      <td>Сумма</td>
+      <td>Стоимость</td>
     </tr>
   </thead>
   <tbody>
@@ -14,20 +13,22 @@
     <tr class="cart-table__row">
       <td>{{number}}</td>
       <td>{{name}}</td>
-      <td>{{price}} <span class="fa fa-rub"></span></td>
+      <td>{{price}}</td>
       <td>
-        <button id="vtCartItemDecrease{{id}}" class="btn btn--add">-</button>
-        {{count}}
-        <button id="vtCartItemIncrease{{id}}" class="btn btn--add">+</button>
+        <button id="vtCartItemDecrease{{id}}">-</button>
+        <span class="cart-table__item-amount">{{count}}</span>
+        <button id="vtCartItemIncrease{{id}}">+</button>
       </td>
       <td>{{sum}}</td>
       <td>
-        <button id="vtCartItemRemove{{id}}" class="btn btn--add">x</button>
+        <button id="vtCartItemRemove{{id}}">x</button>
       </td>
     </tr>
     {{/each}}
+    <tr class="cart-table__row">
+      <td colspan="3"></td>
+      <td>Сумма:</td>
+      <td colspan="2">{{total}}</td>
+    </tr>
   </tbody>
 </table>
-<div class="cart-footer">
-  <span>Общая сумма: {{total}} <span class="fa fa-rub"></span></span>
-</div>
