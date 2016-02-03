@@ -98,13 +98,13 @@ export default function VTCart(cartId) {
    * Update cart view
    */
   function _updateView() {
-    const modal = _u.getElement('.modal__body');
+    const modal = _u.getElement('#modal');
     const cart = _renderTemplate();
 
     _widjetObj.innerHTML = _calculateTotal();
 
     if (modal) {
-      modal.innerHTML = cart;
+      modalWindow.update(cart);
 
       _assignEvents();
     }

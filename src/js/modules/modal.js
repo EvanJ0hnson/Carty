@@ -12,7 +12,7 @@ export function open(modalContent) {
   $body.append(hbsModal({}));
 
   const $modalWindow = $('#modal');
-  const $modalBody = $('.modal__body');
+  const $modalContent = $('.modal__content');
   const $modalBtnClose = $('.modal__btn-close');
 
   $modalWindow[0].addEventListener('click', (event) => {
@@ -24,9 +24,15 @@ export function open(modalContent) {
   $body.toggleClass('u-overflow--hidden');
   $modalWindow.toggleClass('u-display--none', false);
 
-  $modalBody.append(modalContent);
+  $modalContent.append(modalContent);
 
-  $modalBody.toggleClass('u-display--none', false);
+  $modalContent.toggleClass('u-display--none', false);
+}
+
+export function update(content) {
+  const $modalContent = $('.modal__content');
+
+  $modalContent.html(content);
 }
 
 export function close() {
