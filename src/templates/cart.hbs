@@ -2,7 +2,7 @@
 <table class="cart-table">
   <thead>
     <tr class="cart-table__caption">
-      <td>№</td>
+      <td></td>
       <td>Название</td>
       <td>Цена</td>
       <td>Количество</td>
@@ -16,19 +16,13 @@
       <td>{{name}}</td>
       <td>{{price}} <span class="fa fa-rub"></span></td>
       <td>
-        <button id="vtCartItemDecrease{{id}}" class="btn btn--add">
-          <span class="fa fa-minus-circle p-display--none"></span>
-        </button>
+        <button id="vtCartItemDecrease{{id}}" class="btn btn--add">-</button>
         {{count}}
-        <button id="vtCartItemIncrease{{id}}" class="btn btn--add">
-          <span class="fa fa-plus-circle"></span>
-        </button>
+        <button id="vtCartItemIncrease{{id}}" class="btn btn--add">+</button>
       </td>
       <td>{{sum}}</td>
       <td>
-        <button id="vtCartItemRemove{{id}}" class="btn btn--add">
-          <span class="fa fa-times"></span>
-        </button>
+        <button id="vtCartItemRemove{{id}}" class="btn btn--add">x</button>
       </td>
     </tr>
     {{/each}}
