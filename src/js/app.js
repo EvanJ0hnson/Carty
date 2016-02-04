@@ -1,6 +1,5 @@
 'use strict';
 
-import $ from 'jquery-browserify';
 import VTCart from './modules/cart';
 
 /**
