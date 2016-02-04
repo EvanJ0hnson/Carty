@@ -36,3 +36,38 @@ export function getElement(selector) {
 export function getElements(selector) {
   return document.querySelectorAll(selector);
 }
+
+/**
+ * Remove DOM node
+ * @param  {DOM Node} element Dom element
+ */
+export function remove(element) {
+  element.parentNode.removeChild(element);
+}
+
+/**
+ * Append HTML String to the end of DOM Node
+ * @param  {DOM Node} parent     Parent node
+ * @param  {String} htmlString String with HTML
+ */
+export function appendString(parent, htmlString) {
+  parent.insertAdjacentHTML('beforeEnd', htmlString);
+}
+
+/**
+ * Remove class
+ * @param  {DOM Node} element   Dom element
+ * @param  {String} className Class name
+ */
+export function removeClass(element, className) {
+  element.classList.remove(className);
+}
+
+/**
+ * Add class
+ * @param  {DOM Node} element   Dom element
+ * @param  {String} className Class name
+ */
+export function addClass(element, className) {
+  element.classList.add(className);
+}

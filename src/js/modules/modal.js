@@ -1,46 +1,42 @@
 /**
- * [modalWindow description]
- * @return {[type]} [description]
+ * modalWindow
  */
 // import loader from './loader';
-// import {disable_scroll, enable_scroll} from './scrollControl';
+import * as u from './utilites';
+
 import hbsModal from '../../templates/modal.hbs';
 
-const $body = $('body');
+const uBody = u.getElement('body');
+let uModalWindow = null;
+let uModalContent = null;
+let uModalBtnClose = null;
 
-export function open(modalContent) {
-  $body.append(hbsModal({}));
+export function open(content) {
+  u.appendString(uBody, hbsModal());
 
-  const $modalWindow = $('#modal');
-  const $modalContent = $('.modal__content');
-  const $modalBtnClose = $('.modal__btn-close');
+  uModalWindow = u.getElement('#modal');
+  uModalContent = u.getElement('.modal__content');
+  uModalBtnClose = u.getElement('.modal__btn-close');
 
-  $modalWindow[0].addEventListener('click', (event) => {
-    if ((event.target === $modalWindow[0]) || (event.target === $modalBtnClose[0])) {
+  uModalWindow.addEventListener('click', (event) => {
+    if ((event.target === uModalWindow) || (event.target === uModalBtnClose)) {
       this.close();
     }
   });
 
-  $body.toggleClass('u-overflow--hidden');
-  $modalWindow.toggleClass('u-display--none', false);
+  this.update(content);
 
-  $modalContent.append(modalContent);
-
-  $modalContent.toggleClass('u-display--none', false);
-}
-
-export function update(content) {
-  const $modalContent = $('.modal__content');
-
-  $modalContent.html(content);
+  u.removeClass(uModalWindow, 'u-display--none');
+  u.addClass(uBody, 'u-overflow--hidden');
 }
 
 export function close() {
-  const $modalWindow = $('#modal');
+  u.removeClass(uBody, 'u-overflow--hidden');
+  u.addClass(uModalWindow, 'u-display--none');
 
-  $modalWindow.toggleClass('u-display--none', true);
+  u.remove(uModalWindow);
+}
 
-  $body.toggleClass('u-overflow--hidden');
-
-  $modalWindow.remove();
+export function update(content) {
+  uModalContent.innerHTML = content;
 }
