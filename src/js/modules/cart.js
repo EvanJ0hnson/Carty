@@ -10,38 +10,19 @@ import hbsCart from '../../templates/cart.hbs';
 export default function VTCart(cartId) {
   let _data = null;
   let _widjetObj = null;
+  let _widjetData = null;
   const _widjetID = cartId;
-  const EMPTY_CART = 'Корзина пуста';
   const _events = {
     stateChanged: new CustomEvent('stateChanged' + _widjetID, {detail: ''}),
   };
   let publicExport = {};
 
   /**
-   * Cart widjet template
-   * @param  {Number} amout Amout of orders
-   * @param  {Number} total Total cost
-   * @return {String}       Generated template
-   */
-  function _tplCartWidjet(amout, total) {
-    const tpl = `${amout}, ${total}`;
-    return tpl;
-  }
-
-  /**
    * Calculate total cost of cart's items
    * @return {String} Generated template
    */
-  function _calculateTotal() {
-    let total = 0;
-    let itemsAmout = 0;
-
-    _data.forEach((item) => {
-      itemsAmout++;
-      total += item.num * item.price;
-    });
-
-    return (total ? _tplCartWidjet(itemsAmout, total) : EMPTY_CART);
+  function _getItemsCount() {
+    return (_data.length);
   }
 
   /**
@@ -101,7 +82,7 @@ export default function VTCart(cartId) {
     const modal = _u.getElement('#modal');
     const cart = _renderTemplate();
 
-    _widjetObj.innerHTML = _calculateTotal();
+    _widjetData.innerHTML = _getItemsCount();
 
     if (modal) {
       modalWindow.update(cart);
@@ -222,6 +203,7 @@ export default function VTCart(cartId) {
    */
   (function init() {
     _widjetObj = _u.getElement('#' + _widjetID);
+    _widjetData = _widjetObj.querySelector('.cart-widjet__data');
 
     _data = _loadState(_widjetID);
 
@@ -231,7 +213,7 @@ export default function VTCart(cartId) {
 
     document.addEventListener('stateChanged' + _widjetID, () => {
       _updateView();
-      _calculateTotal();
+      _getItemsCount();
       _saveState();
     });
 

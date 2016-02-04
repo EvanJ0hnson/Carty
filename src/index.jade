@@ -8,8 +8,11 @@ html
     link(rel='stylesheet', href='css/vendor.min.css')
     link(rel='stylesheet', href='css/bundle.min.css')
   body
-    button#cart-widjet
-    br
+    #cart-widjet.cart-widjet__wrapper
+      .cart-widjet__body
+        div
+          include ./svg/shopping-bag.svg
+        .cart-widjet__data
     button(id="vtCartItemAdd001") +
     button(id="vtCartItemAdd002") +
     button(id="vtCartItemAdd003") +
