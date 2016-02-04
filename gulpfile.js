@@ -145,6 +145,9 @@ gulp.task('stylus', function() {
 
 gulp.task('jade', function() {
   gulp.src('./src/**.jade')
+    .pipe($.plumber({
+          errorHandler: plumberErrorHandler
+      }))
     .pipe($.jade())
     .pipe(gulp.dest('./build/'))
 });
