@@ -11,7 +11,7 @@ export function getJSON(url, callback) {
   ajax.onreadystatechange = () => {
     if (ajax.readyState === 4) {
       if (ajax.status === 200) {
-        return callback(ajax.responseText);
+        return callback(JSON.parse(ajax.responseText));
       }
     }
   };
