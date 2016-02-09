@@ -2,7 +2,7 @@
  * @module modules/cart
  */
 import * as modalWindow from './modal';
-import * as _u from './utilites';
+import * as $u from './utilites';
 
 import hbsCart from '../../templates/cart.hbs';
 
@@ -89,9 +89,9 @@ function _assignEvents() {
 
   obj._data.forEach((item) => {
     const itemId = item.id;
-    const itemDecrease = _u.getElement('#CartItemDecrease' + itemId);
-    const itemIncrease = _u.getElement('#CartItemIncrease' + itemId);
-    const itemRemove = _u.getElement('#CartItemRemove' + itemId);
+    const itemDecrease = $u.getElement('#CartItemDecrease' + itemId);
+    const itemIncrease = $u.getElement('#CartItemIncrease' + itemId);
+    const itemRemove = $u.getElement('#CartItemRemove' + itemId);
 
     itemDecrease.addEventListener('click', () => {
       obj.decreaseItemAmount(itemId);
@@ -110,7 +110,7 @@ function _assignEvents() {
  * @private
  */
 function _updateView() {
-  const modal = _u.getElement('#modal');
+  const modal = $u.getElement('#modal');
   const cart = _renderTemplate.call(this);
 
   this._widjetData.innerHTML = this.getItemsCount();
@@ -252,8 +252,8 @@ Cart.prototype = {
    * @public
    */
   init() {
-    this._widjetObj = _u.getElement('#' + this._widjetID);
-    this._widjetData = _u.getChild(this._widjetObj, '.cart-widjet__data');
+    this._widjetObj = $u.getElement('#' + this._widjetID);
+    this._widjetData = $u.getChild(this._widjetObj, '.cart-widjet__data');
 
     this._data = _loadState(this._widjetID);
 
@@ -269,15 +269,15 @@ Cart.prototype = {
     document.dispatchEvent(this._events.stateChanged);
 
     /** Test related events */
-    _u.getElement('#cartItemAdd001').addEventListener('click', () => {
+    $u.getElement('#cartItemAdd001').addEventListener('click', () => {
       this.addToCart('001', 'Салат «Грибы с сыром»', 130);
     });
 
-    _u.getElement('#cartItemAdd002').addEventListener('click', () => {
+    $u.getElement('#cartItemAdd002').addEventListener('click', () => {
       this.addToCart('002', 'Просто салат обычный', 150);
     });
 
-    _u.getElement('#cartItemAdd003').addEventListener('click', () => {
+    $u.getElement('#cartItemAdd003').addEventListener('click', () => {
       this.addToCart('003', 'Просто салат обычный', 150);
     });
   },
