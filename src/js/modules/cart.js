@@ -253,7 +253,7 @@ Cart.prototype = {
    */
   init() {
     this._widjetObj = _u.getElement('#' + this._widjetID);
-    this._widjetData = this._widjetObj.querySelector('.cart-widjet__data');
+    this._widjetData = _u.getChild(this._widjetObj, '.cart-widjet__data');
 
     this._data = _loadState(this._widjetID);
 

@@ -20,6 +20,15 @@ export function getJSON(url, callback) {
 }
 
 /**
+ * Get child of a DOM Node
+ * @param  {String}  element Element name
+ * @return {Element}         DOM element
+ */
+export function getChild(parent, child) {
+  return parent.querySelector(child);
+}
+
+/**
  * Get DOM element by selector
  * @param  {String} element Element name
  * @return {Element}         DOM element
