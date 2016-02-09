@@ -59,22 +59,19 @@ function Cart(id) {
 function _renderTemplate() {
   let total = 0;
   let counter = 0;
+  let sum = 0;
   const order = [];
 
   this._data.forEach((item) => {
-    const orderItem = {};
     counter++;
+    sum = item.price * item.count;
+    total += item.price * item.count;
 
-    orderItem.id = item.id;
-    orderItem.number = counter;
-    orderItem.name = item.name;
-    orderItem.price = item.price;
-    orderItem.count = item.num;
-    orderItem.sum = item.price * item.num;
-
-    total += orderItem.sum;
-
-    order.push(orderItem);
+    order.push(Object.assign({}, {
+      number: counter,
+      sum,
+    },
+    item));
   });
 
   return hbsCart({order, total});
@@ -97,7 +94,7 @@ function _assignEvents() {
       obj.decreaseItemAmount(itemId);
     });
     itemIncrease.addEventListener('click', () => {
-      obj.addToCart(itemId);
+      obj.addToCart(item);
     });
     itemRemove.addEventListener('click', () => {
       obj.removeFromCart(itemId);
@@ -164,19 +161,18 @@ Cart.prototype = {
    * @param  {Number} price Item price
    * @public
    */
-  addToCart(id, name, price) {
+  addToCart(item) {
     let itemIndex = null;
-    const orderItem = {
-      id,
-      name,
-      price,
-      num: 1,
-    };
+    const orderItem = Object.assign({},
+      item,
+      {
+        count: 1
+      });
 
-    itemIndex = _findItem.call(this, id);
+    itemIndex = _findItem.call(this, orderItem.id);
 
     if (itemIndex !== null) {
-      this._data[itemIndex].num++;
+      this._data[itemIndex].count++;
     } else {
       this._data.push(orderItem);
     }
@@ -207,10 +203,10 @@ Cart.prototype = {
     const itemIndex = _findItem.call(this, id);
 
     if (itemIndex !== null) {
-      if (this._data[itemIndex].num === 1) {
+      if (this._data[itemIndex].count === 1) {
         this._data.splice(itemIndex, 1);
       } else {
-        this._data[itemIndex].num -= 1;
+        this._data[itemIndex].count -= 1;
       }
 
       document.dispatchEvent(this._events.stateChanged);
@@ -270,15 +266,15 @@ Cart.prototype = {
 
     /** Test related events */
     $u.getElement('#cartItemAdd001').addEventListener('click', () => {
-      this.addToCart('001', 'Салат «Грибы с сыром»', 130);
+      this.addToCart({id: '001', name: 'Объект 1', price: 130});
     });
 
     $u.getElement('#cartItemAdd002').addEventListener('click', () => {
-      this.addToCart('002', 'Просто салат обычный', 150);
+      this.addToCart({id: '002', name: 'Объект 2', price: 140});
     });
 
     $u.getElement('#cartItemAdd003').addEventListener('click', () => {
-      this.addToCart('003', 'Просто салат обычный', 150);
+      this.addToCart({id: '003', name: 'Объект 3', price: 150});
     });
   },
 };
