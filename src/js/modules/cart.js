@@ -264,18 +264,29 @@ Cart.prototype = {
 
     document.dispatchEvent(this._events.stateChanged);
 
-    /** Test related events */
-    $u.getElement('#cartItemAdd001').addEventListener('click', () => {
-      this.addToCart({id: '001', name: 'Объект 1', price: 130});
-    });
+    /** FOR DEVELOPMENT ONLY */
+    $u.getJSON('/data/cartData.json', (itemsArray) => {
+      const items = [];
+      let flattenItems = [];
+      itemsArray.forEach((item) => {
+        items.push(item.items);
+      });
 
-    $u.getElement('#cartItemAdd002').addEventListener('click', () => {
-      this.addToCart({id: '002', name: 'Объект 2', price: 140});
-    });
+      flattenItems = items.reduce((prev, cur) => {
+        return prev.concat(cur);
+      });
 
-    $u.getElement('#cartItemAdd003').addEventListener('click', () => {
-      this.addToCart({id: '003', name: 'Объект 3', price: 150});
+      flattenItems.forEach((item) => {
+        const elementTitle = '#cartItemAdd' + item.id;
+        const element = $u.getElement(elementTitle);
+        if (element) {
+          element.addEventListener('click', () => {
+            this.addToCart(item);
+          });
+        }
+      });
     });
+    /** FOR DEVELOPMENT ONLY */
   },
 };
 
