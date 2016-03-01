@@ -46,9 +46,7 @@ function Cart(id) {
    * @type {Object}
    * @private
    */
-  this._events = {
-    stateChanged: new CustomEvent('stateChanged' + this._widjetID, {detail: ''}),
-  };
+  this._events = null;
 }
 
 /**
@@ -162,6 +160,30 @@ function _findItem(id) {
   return (hasOrderItem ? itemIndex : null);
 }
 
+/**
+ * Polyfill for customEvent in IE9-11
+ * @private
+ */
+function _customEventPolyfill() {
+  try {
+    const testEvent = new CustomEvent("IE has CustomEvent, but doesn't support constructor");
+  } catch (error) {
+    window.CustomEvent = function (event, params) {
+      let evt;
+      const evtParams = params || {
+        bubbles: false,
+        cancelable: false,
+        detail: undefined
+      };
+      evt = document.createEvent('CustomEvent');
+      evt.initCustomEvent(event, evtParams.bubbles, evtParams.cancelable, evtParams.detail);
+      return evt;
+    };
+
+    CustomEvent.prototype = Object.create(window.Event.prototype);
+  }
+}
+
 Cart.prototype = {
   /**
    * Add new item to cart or increase amout of existing one
@@ -262,16 +284,30 @@ Cart.prototype = {
 
     this._data = _loadState(this._widjetID);
 
-    this._widjetObj.addEventListener('click', () => {
-      this.showWindow();
-    });
+    /**
+     * Register events
+     */
+    _customEventPolyfill();
+
+    this._events = {
+      stateChanged: new CustomEvent('stateChanged' + this._widjetID, {
+        detail: {name: 'stateChanged'}
+      }),
+    };
 
     document.addEventListener('stateChanged' + this._widjetID, () => {
       _saveState.call(this);
       _updateView.call(this);
     });
+    /**
+     * Events
+     */
 
     document.dispatchEvent(this._events.stateChanged);
+
+    this._widjetObj.addEventListener('click', () => {
+      this.showWindow();
+    });
 
     /** FOR DEVELOPMENT ONLY */
     $u.getJSON('/data/cartData.json', (itemsArray) => {
