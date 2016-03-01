@@ -67,22 +67,20 @@ function _renderTemplate() {
  * @private
  */
 function _assignEvents() {
-  const obj = this;
-
-  obj._data.forEach((item) => {
+  this._data.forEach((item) => {
     const itemId = item.id;
     const itemDecrease = $u.getElement('#CartItemDecrease' + itemId);
     const itemIncrease = $u.getElement('#CartItemIncrease' + itemId);
     const itemRemove = $u.getElement('#CartItemRemove' + itemId);
 
     itemDecrease.addEventListener('click', () => {
-      obj.decreaseItemAmount(itemId);
+      this.decreaseItemAmount(itemId);
     });
     itemIncrease.addEventListener('click', () => {
-      obj.addToCart(item);
+      this.addToCart(item);
     });
     itemRemove.addEventListener('click', () => {
-      obj.removeFromCart(itemId);
+      this.removeFromCart(itemId);
     });
   });
 }
