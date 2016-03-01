@@ -1,69 +1,42 @@
 # Carty
-Simple shopping cart for website
+Simple shopping cart for a website
+*(v0.1, Work in progress)*
 
-
-
-# modules&#x2F;cart
-
-* * *
+# modules/cart
 
 ## Class: Cart
 Cart constructor
 
-### modules&#x2F;cart.Cart.addToCart(id, name, price) 
-
+### modules/cart.Cart.addToCart(id, name, price) 
 Add new item to cart or increase amout of existing one
-
 **Parameters**
-
 **id**: `String`, ID
-
 **name**: `String`, Item name
-
 **price**: `Number`, Item price
 
-
-### modules&#x2F;cart.Cart.removeFromCart(id) 
-
+### modules/cart.Cart.removeFromCart(id) 
 Remove item from cart
-
 **Parameters**
-
 **id**: `Number`, Item id
 
-
-### modules&#x2F;cart.Cart.decreaseItemAmount(id) 
-
-Decrease amout of item in cart
-or completely delete it
-
+### modules/cart.Cart.decreaseItemAmount(id) 
+Decrease amout of item in cart or completely delete it
 **Parameters**
-
 **id**: `Number`, Item id
 
-
-### modules&#x2F;cart.Cart.getItems() 
-
+### modules/cart.Cart.getItems() 
 Get Cart items
-
 **Returns**: `Array`, Cart items
 
-### modules&#x2F;cart.Cart.getItemsCount() 
-
+### modules/cart.Cart.getItemsCount() 
 Calculate total cost of cart's items
-
 **Returns**: `String`, Generated template
 
-### modules&#x2F;cart.Cart.showWindow() 
-
+### modules/cart.Cart.showWindow() 
 Show Cart modal
 
-### modules&#x2F;cart.Cart.init() 
-
+### modules/cart.Cart.init() 
 Cart initialization
 
-### modules&#x2F;cart.Cart.Cart() 
-
+### modules/cart.Cart.Cart() 
 Cart constructor
-
-* * *
