@@ -310,18 +310,8 @@ Cart.prototype = {
     });
 
     /** FOR DEVELOPMENT ONLY */
-    $u.getJSON('/data/cartData.json', (itemsArray) => {
-      const items = [];
-      let flattenItems = [];
-      itemsArray.forEach((item) => {
-        items.push(item.items);
-      });
-
-      flattenItems = items.reduce((prev, cur) => {
-        return prev.concat(cur);
-      });
-
-      flattenItems.forEach((item) => {
+    $u.getJSON('/data/cartData.json', (items) => {
+      items.forEach((item) => {
         const elementTitle = '#cartItemAdd' + item.id;
         const element = $u.getElement(elementTitle);
         if (element) {
