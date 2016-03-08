@@ -9,6 +9,17 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  
+  &:before,
+  &:after {
+    content: '';
+    width: 200px;
+    margin: 0 1rem;
+  }
+  
+  &:before {
+    order: 1;
+  }
 }
 
 .cart-item {
