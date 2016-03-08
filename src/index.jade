@@ -12,8 +12,7 @@ html
     nav.top-menu
       ul.top-menu__list
         for val in [{id:"descripton", title:"Description"}, {id:"example", title:"Example"}, {id:"usage", title:"Usage"}, {id:"download", title:"Download"}]
-          li.top-menu__item
-            a.top-menu__link(href="##{val.id}") #{val.title}
+          li: a.top-menu__link(href="##{val.id}") #{val.title}
     div.section.section-top
     div#example.section
       #cart-widjet.cart-widjet__wrapper
