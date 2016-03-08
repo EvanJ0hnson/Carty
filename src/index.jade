@@ -13,14 +13,15 @@ html
       ul.top-menu__list
         for val in [{id:"descripton", title:"Description"}, {id:"example", title:"Example"}, {id:"usage", title:"Usage"}, {id:"download", title:"Download"}]
           li: a.top-menu__link(href="##{val.id}") #{val.title}
-    div.section.section-top
+    .section.section-top
       .title-area
         .title-area__logo
           include ./svg/shopping-basket.svg
         .title-area__text
           .title-area__text-sub Simple cart for your website
           .title-area__text-main Hamper
-    div#example.section
+    #description.section
+    #example.section
       #cart-widjet.cart-widjet__wrapper
         .cart-widjet__body
           div
@@ -29,5 +30,8 @@ html
       button(id="cartItemAdd001") +
       button(id="cartItemAdd002") +
       button(id="cartItemAdd003") +
+    #usage.section
+    #download.section
+    footer.section
     //- javascript
     script(src='js/bundle.min.js')
