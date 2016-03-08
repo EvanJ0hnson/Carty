@@ -14,6 +14,12 @@ html
         for val in [{id:"descripton", title:"Description"}, {id:"example", title:"Example"}, {id:"usage", title:"Usage"}, {id:"download", title:"Download"}]
           li: a.top-menu__link(href="##{val.id}") #{val.title}
     div.section.section-top
+      .title-area
+        .title-area__logo
+          include ./svg/shopping-basket.svg
+        .title-area__text
+          .title-area__text-sub Simple cart for your website
+          .title-area__text-main Hamper
     div#example.section
       #cart-widjet.cart-widjet__wrapper
         .cart-widjet__body

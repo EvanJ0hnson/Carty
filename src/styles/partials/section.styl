@@ -4,8 +4,48 @@
 
 .section-top {
   display: flex;
+  justify-content: center;
+  align-items: center;
   
   height: 100vh;
   
   background: linear-gradient(to top, $clrViolet, $clrBlue--1);
+}
+
+.title-area {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  
+  color: $clrWhite--1;
+}
+
+.title-area__logo {
+  margin-right: 2rem;
+  
+  & > svg {
+    $size = 256px;
+    
+    width: $size;
+    height: $size;
+  }
+}
+
+.title-area__text {
+  margin-bottom: 1rem;
+  cursor: default;
+}
+
+.title-area__text-sub {
+  margin-bottom: -1rem;
+  
+  font-family: 'Work Sans', sans-serif;
+  
+  text-align: right;
+}
+
+.title-area__text-main {
+  font-family: 'Corben', cursive;
+  font-size: 6rem;
 }
