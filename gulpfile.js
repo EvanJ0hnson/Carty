@@ -157,14 +157,14 @@ gulp.task('jade-watch', ['jade'], function () {
 });
 
 gulp.task('imageOptim', function () {
-  return gulp.src(config.srcRoot + 'img/*')
+  return gulp.src(config.srcRoot + 'images/**/*')
     .pipe($.plumber({
         errorHandler: plumberErrorHandler
     }))
     .pipe($.imagemin({
       progressive: true,
       }))
-    .pipe(gulp.dest(config.buildRoot + 'img/'));
+    .pipe(gulp.dest(config.buildRoot + 'images/'));
 });
 
 gulp.task('photos', function () {
@@ -203,7 +203,7 @@ gulp.task('build', function (cb) {
   $.runSequence('clean', [
     'jade',
     // 'photos',
-    // 'imageOptim',
+    'imageOptim',
     'stylus',
     'css',
     'js',
