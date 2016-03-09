@@ -23,6 +23,9 @@
 }
 
 .cart-item {
+  display: flex;
+  flex-direction: column;
+  
   padding: 1rem;
   margin: 1rem;
   
@@ -37,6 +40,7 @@
 .cart-item__title,
 .cart-item__available,
 .cart-item__price {
+  flex-basis: 100%;
   margin-bottom: .5rem;
 }
 
@@ -44,14 +48,16 @@
   $size = calc(200px - 2rem - 2px);
   
   width: $size;
-  // height: @width;
+  height: @width;
   
   margin-bottom: .5rem;
 }
 
 .cart-item__add {
+  align-self: flex-end;
+  
   padding: .5rem;
-  margin: 0;
+  margin: auto 0 0 0;
   
   // Move to .btn
   appearance: none;
