@@ -9,11 +9,11 @@ html
     link(rel='stylesheet', href='css/vendor.min.css')
     link(rel='stylesheet', href='css/bundle.min.css')
   body
-    nav.top-menu
-      ul.top-menu__list
-        for val in [{id:"descripton", title:"Description"}, {id:"example", title:"Example"}, {id:"usage", title:"Usage"}, {id:"download", title:"Download"}]
-          li: a.top-menu__link(href="##{val.id}") #{val.title}
     .section.section-top
+      nav.top-menu
+        ul.top-menu__list
+          for val in [{id:"descripton", title:"Description"}, {id:"example", title:"Example"}, {id:"usage", title:"Usage"}, {id:"download", title:"Download"}]
+            li: a.top-menu__link(href="##{val.id}") #{val.title}
       .title-area
         .title-area__logo
           include ./svg/shopping-basket.svg
