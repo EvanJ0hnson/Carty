@@ -1,7 +1,7 @@
 {
-  "name": "carty",
+  "name": "Hamper",
   "version": "0.8.0",
-  "description": "Simple shopping cart for website",
+  "description": "Simple shopping cart for a website",
   "main": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
