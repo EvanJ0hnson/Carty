@@ -228,14 +228,25 @@ gulp.task('build', function (cb) {
 gulp.task('deploy', function () {
   var ftpConfig = require('./ftp_config.json')
 
-  var conn = $.vinylFtp.create( {
+  var ftpConnection = $.vinylFtp.create( {
       host: ftpConfig.host,
       user: ftpConfig.user,
       password: ftpConfig.pass,
   } );
 
-  return gulp.src(config.buildRoot + '/**/*', {buffer: false })
-      .pipe(conn.dest(ftpConfig.remotePath));
+  $.notify({
+          title:    "Hamper deploy",
+          message:  "Deployed"
+        })
+
+  gulp.src(config.buildRoot + '/**/*', {buffer: false })
+      .pipe(ftpConnection.dest(ftpConfig.remotePath))
+      .pipe($.notify({
+          title:    "Hamper deploy",
+          message:  "Deployed",
+          onLast: true
+        })
+      );
 });
 
 /**
