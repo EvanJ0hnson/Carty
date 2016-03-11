@@ -215,6 +215,30 @@ gulp.task('build', function (cb) {
 });
 
 /**
+ * Task: Deploy
+ *
+ * //ftp_config.json
+ *  {
+ *    "host": "example.com",
+ *    "user": "user",
+ *    "pass": "password",
+ *    "remotePath": "/.../"
+ *  }
+ */
+gulp.task('deploy', function () {
+  var ftpConfig = require('./ftp_config.json')
+
+  var conn = $.vinylFtp.create( {
+      host: ftpConfig.host,
+      user: ftpConfig.user,
+      password: ftpConfig.pass,
+  } );
+
+  return gulp.src(config.buildRoot + '/**/*', {buffer: false })
+      .pipe(conn.dest(ftpConfig.remotePath));
+});
+
+/**
  * Task: Serve
  */
 gulp.task('serve', ['watch']);

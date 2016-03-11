@@ -42,6 +42,7 @@
     "hbsfy": "^2.4.1",
     "run-sequence": "^1.1.2",
     "vinyl-buffer": "^1.0.0",
+    "vinyl-ftp": "^0.4.5",
     "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
