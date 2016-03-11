@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/EvanJ0hnson/Carty.git"
+    "url": "https://github.com/EvanJ0hnson/Hamper.git"
   },
   "author": "Ivan Gerasimov",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/EvanJ0hnson/Carty.loc/issues"
+    "url": "https://github.com/EvanJ0hnson/Hamper.loc/issues"
   },
-  "homepage": "http://carty.gerasimov.pw",
+  "homepage": "http://hamper.gerasimov.pw",
   "devDependencies": {
     "autoprefixer": "^6.3.1",
     "babel-eslint": "^4.1.6",
