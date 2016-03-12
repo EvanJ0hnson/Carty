@@ -134,9 +134,6 @@ gulp.task('stylus', function () {
       errorHandler: plumberErrorHandler
     }))
     .pipe($.stylus())
-    .pipe($.postcss([
-      $.stylelint(),
-    ]))
     .pipe($.concat('bundle.min.css'))
     .pipe($.postcss([
       $.autoprefixer({browsers: ['last 2 versions']}),
