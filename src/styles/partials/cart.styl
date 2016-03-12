@@ -10,14 +10,14 @@
   flex-wrap: wrap;
   justify-content: space-around;
   
-  &:before,
-  &:after {
-    content: '';
+  &::before,
+  &::after {
+    content: "";
     width: 200px;
     margin: 0 1rem;
   }
   
-  &:before {
+  &::before {
     order: 1;
   }
 }
@@ -31,7 +31,7 @@
   
   width: 200px;
   
-  border: 1px solid rgba(0,0,0,0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 3px;
     
   cursor: default;
@@ -100,7 +100,7 @@
 
   cursor: pointer;
   border-radius: 100%;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   
   color: $clrGrey900;
   fill: currentColor;
@@ -108,7 +108,7 @@
   transition: box-shadow .25s ease;
     
   &:hover {
-    box-shadow: 0 3px 7px rgba(0,0,0,0.3);
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
   }
 }
 
