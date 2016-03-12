@@ -1,0 +1,8 @@
+{
+  "extends": "stylelint-config-standard",
+  "rules": {
+    "rule-non-nested-empty-line-before": "never",
+    "comment-empty-line-before": "never",
+    "function-comma-space-after": "never"
+  }
+}

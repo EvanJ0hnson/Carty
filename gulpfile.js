@@ -134,13 +134,28 @@ gulp.task('stylus', function() {
         errorHandler: plumberErrorHandler
     }))
     .pipe($.stylus())
+    .pipe($.postcss([
+      $.stylelint(),
+    ]))
     .pipe($.concat('bundle.min.css'))
     .pipe($.postcss([
       $.autoprefixer({browsers: ['last 2 versions']}),
-      $.cssnano({safe: true})
+      $.cssnano({safe: true}),
     ]))
     .pipe(gulp.dest(config.buildRoot + 'css/'))
     .pipe(browserSyncInstance.stream());
+});
+
+gulp.task('stylelint', function () {
+  return gulp.src(config.srcRoot + 'styles/partials/*.styl')
+    .pipe($.plumber({
+      errorHandler: plumberErrorHandler
+    }))
+    .pipe($.stylus())
+    .pipe($.postcss([
+      $.stylelint(),
+      $.postcssReporter({clearMessages: true}),
+    ]));
 });
 
 gulp.task('jade', function() {
