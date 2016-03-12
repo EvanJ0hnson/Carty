@@ -3,7 +3,7 @@
 	[
 		{
 			"name": "root",
-			"folder_exclude_patterns": ["src","node_modules", ".idea"],
+			"folder_exclude_patterns": ["src","node_modules", ".idea", ".vscode"],
       "file_exclude_patterns": ["*.sublime-project"],
 			"path": "."
 		},{
