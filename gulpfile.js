@@ -5,8 +5,8 @@
  */
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')({
-      pattern: ['*']
-    });
+  pattern: ['*']
+});
 
 var browserSyncInstance = $.browserSync.create();
 var config = {
@@ -23,20 +23,20 @@ var config = {
 var plumberErrorHandler = function (error) {
   console.log(error.toString());
   $.notify.onError({
-    title:    "Build error",
-    message:  "Plugin: <%= error.plugin %>"
+    title: 'Build error',
+    message: 'Plugin: <%= error.plugin %>'
   })(error);
   this.emit('end');
 };
 
 $.hbsfy.configure({
-  extensions: ["hbs"]
+  extensions: ['hbs']
 });
 /**
  * Configuration
  */
 
-gulp.task('browserSync', function(cb) {
+gulp.task('browserSync', function (cb) {
   browserSyncInstance.init({
     proxy: config.proxyAdress,
     open: false,
@@ -45,14 +45,14 @@ gulp.task('browserSync', function(cb) {
   }, cb);
 });
 
-gulp.task('php', function() {
+gulp.task('php', function () {
   return gulp.src(config.srcRoot + '**/[^!]*.php')
     .pipe($.plumber({
-        errorHandler: plumberErrorHandler
+      errorHandler: plumberErrorHandler
     }))
     .pipe($.htmlmin({
       collapseWhitespace: true
-      }))
+    }))
     .pipe(gulp.dest(config.buildRoot));
 });
 
@@ -61,14 +61,14 @@ gulp.task('php-watch', ['php'], function () {
 });
 
 
-gulp.task('html', function() {
+gulp.task('html', function () {
   return gulp.src(config.srcRoot + '**/[^!]*.html')
     .pipe($.plumber({
-        errorHandler: plumberErrorHandler
+      errorHandler: plumberErrorHandler
     }))
     .pipe($.htmlmin({
       collapseWhitespace: true
-      }))
+    }))
     .pipe(gulp.dest(config.buildRoot));
 });
 
@@ -77,18 +77,18 @@ gulp.task('html-watch', ['html'], function () {
 });
 
 
-gulp.task('fonts', function() {
+gulp.task('fonts', function () {
   return gulp.src(config.vendorFonts)
     .pipe($.plumber({
-        errorHandler: plumberErrorHandler
+      errorHandler: plumberErrorHandler
     }))
     .pipe(gulp.dest(config.buildRoot + 'fonts/'));
 });
 
-gulp.task('json', function() {
+gulp.task('json', function () {
   return gulp.src(config.srcRoot + '**/[^!]*.json')
     .pipe($.plumber({
-        errorHandler: plumberErrorHandler
+      errorHandler: plumberErrorHandler
     }))
     .pipe(gulp.dest(config.buildRoot));
 });
@@ -97,7 +97,7 @@ gulp.task('json-watch', ['json'], function () {
   browserSyncInstance.reload();
 });
 
-gulp.task('js', function() {
+gulp.task('js', function () {
   return $.browserify(config.srcRoot + 'js/app.js')
     .transform($.babelify)
     .transform($.hbsfy)
@@ -116,10 +116,10 @@ gulp.task('handlebars-watch', ['js'], function () {
   browserSyncInstance.reload();
 });
 
-gulp.task('css', function() {
+gulp.task('css', function () {
   return gulp.src(config.vendorCSS)
     .pipe($.plumber({
-        errorHandler: plumberErrorHandler
+      errorHandler: plumberErrorHandler
     }))
     .pipe($.concat('vendor.min.css'))
     .pipe($.postcss([
@@ -128,10 +128,10 @@ gulp.task('css', function() {
     .pipe(gulp.dest(config.buildRoot + 'css/'));
 });
 
-gulp.task('stylus', function() {
+gulp.task('stylus', function () {
   return gulp.src(config.srcRoot + 'styles/bundle.styl')
     .pipe($.plumber({
-        errorHandler: plumberErrorHandler
+      errorHandler: plumberErrorHandler
     }))
     .pipe($.stylus())
     .pipe($.postcss([
@@ -158,13 +158,13 @@ gulp.task('stylelint', function () {
     ]));
 });
 
-gulp.task('jade', function() {
+gulp.task('jade', function () {
   gulp.src('./src/**.jade')
     .pipe($.plumber({
-          errorHandler: plumberErrorHandler
-      }))
+      errorHandler: plumberErrorHandler
+    }))
     .pipe($.jade())
-    .pipe(gulp.dest('./build/'))
+    .pipe(gulp.dest(config.buildRoot));
 });
 
 gulp.task('jade-watch', ['jade'], function () {
@@ -174,18 +174,18 @@ gulp.task('jade-watch', ['jade'], function () {
 gulp.task('imageOptim', function () {
   return gulp.src(config.srcRoot + 'images/**/*')
     .pipe($.plumber({
-        errorHandler: plumberErrorHandler
+      errorHandler: plumberErrorHandler
     }))
     .pipe($.imagemin({
       progressive: true,
-      }))
+    }))
     .pipe(gulp.dest(config.buildRoot + 'images/'));
 });
 
 gulp.task('photos', function () {
   return gulp.src(config.srcRoot + 'photo/**/*')
     .pipe($.plumber({
-        errorHandler: plumberErrorHandler
+      errorHandler: plumberErrorHandler
     }))
     .pipe(gulp.dest(config.buildRoot + 'photo/'));
 });
@@ -193,9 +193,7 @@ gulp.task('photos', function () {
 /**
  * Task: Watch
  */
-gulp.task('watch', ['browserSync'], function() {
-  // gulp.watch(config.srcRoot + '**/[^!]*.php', ['php-watch']);
-  // gulp.watch(config.srcRoot + '**/[^!]*.html', ['html-watch']);
+gulp.task('watch', ['browserSync'], function () {
   gulp.watch(config.srcRoot + 'data/**/[^!]*.json', ['json-watch']);
   gulp.watch(config.srcRoot + '**/[^!]*.jade', ['jade-watch']);
   gulp.watch(config.srcRoot + 'js/**/[^!]*.js', ['js-watch']);
@@ -217,16 +215,13 @@ gulp.task('clean', function (cb) {
 gulp.task('build', function (cb) {
   $.runSequence('clean', [
     'jade',
-    // 'photos',
     'imageOptim',
     'stylus',
     'css',
     'js',
     'json',
     'html',
-    // 'php',
-    // 'fonts',
-    ], cb);
+  ], cb);
 });
 
 /**
@@ -241,27 +236,26 @@ gulp.task('build', function (cb) {
  *  }
  */
 gulp.task('deploy', function () {
-  var ftpConfig = require('./ftp_config.json')
+  var ftpConfig = require('./ftp_config.json');
 
   var ftpConnection = $.vinylFtp.create( {
-      host: ftpConfig.host,
-      user: ftpConfig.user,
-      password: ftpConfig.pass,
-  } );
+    host: ftpConfig.host,
+    user: ftpConfig.user,
+    password: ftpConfig.pass,
+  });
 
   $.notify({
-          title:    "Hamper deploy",
-          message:  "Deployed"
-        })
+    title: 'Hamper deploy',
+    message: 'Deployed'
+  });
 
-  gulp.src(config.buildRoot + '/**/*', {buffer: false })
+  gulp.src(config.buildRoot + '/**/*', {buffer: false})
       .pipe(ftpConnection.dest(ftpConfig.remotePath))
       .pipe($.notify({
-          title:    "Hamper deploy",
-          message:  "Deployed",
-          onLast: true
-        })
-      );
+        title: 'Hamper deploy',
+        message: 'Deployed',
+        onLast: true
+      }));
 });
 
 /**
