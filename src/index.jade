@@ -91,10 +91,25 @@ html
     #usage.section
     #download.section
     footer.section.section-footer
-      div Hamper
-        span.u-vertical-align--super ©
-      div Ivan Gerasimov
-      div gerasimov.pw
+      .section__content-wrapper
+        .grid__row
+          .grid__column--1-4
+            .footer-item__wrapper
+              div Hamper
+                span.u-vertical-align--super ©
+          .grid__column--1-4
+            .footer-item__wrapper
+              nav
+                ul
+                  for val in [{id:"description", title:"Description"}, {id:"example", title:"Example"}, {id:"usage", title:"Usage"}, {id:"download", title:"Download"}]
+                    li: a(href="##{val.id}") #{val.title}
+          .grid__column--1-4
+            .footer-item__wrapper
+              div Ivan Gerasimov
+              div gerasimov.pw
+        .grid__row.u-justify-content--flex-end
+          .footer-item__wrapper
+            <div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
     //- javascript
     script(src='js/bundle.min.js')
     script.
