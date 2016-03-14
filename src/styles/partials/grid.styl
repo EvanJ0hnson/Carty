@@ -1,3 +1,5 @@
+$bp480 = "(max-width: 480px)";
+
 .grid__row {
   display: flex;
   align-items: flex-start;
@@ -9,4 +11,16 @@
 
 .grid__column--1-4 {
   flex-basis: calc(100% / 4);
+  
+  @media $bp480 {
+    flex-basis: 50%;
+  }
+}
+
+.grid__column--1-2 {
+  flex-basis: 50%;
+  
+  @media $bp480 {
+    flex-basis: 100%;
+  }
 }
