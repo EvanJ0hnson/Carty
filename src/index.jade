@@ -91,6 +91,16 @@ html
             .cart-item__price $49.99
             button.cart-item__add(type="button" id="cartItemAdd003") Add To Cart
     #usage.section
+      .section__content-wrapper
+        .section__title Usage
+        pre.highlight__wrapper
+          code
+            | /* app.js */
+            | import {Cart} from 'cart';
+            br
+            br
+            | const cartInstance = new Cart('cart-widjet');
+            | cartInstance.init();
     #download.section
     footer.section.section-footer
       .section__content-wrapper
