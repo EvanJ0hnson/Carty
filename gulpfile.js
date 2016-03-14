@@ -116,7 +116,7 @@ gulp.task('handlebars-watch', ['js'], function () {
   browserSyncInstance.reload();
 });
 
-gulp.task('css', function () {
+gulp.task('styles:vendor', function () {
   return gulp.src(config.vendorCSS)
     .pipe($.plumber({
       errorHandler: plumberErrorHandler
@@ -128,7 +128,7 @@ gulp.task('css', function () {
     .pipe(gulp.dest(config.buildRoot + 'css/'));
 });
 
-gulp.task('stylus', function () {
+gulp.task('styles:custom', function () {
   return gulp.src(config.srcRoot + 'styles/bundle.styl')
     .pipe($.plumber({
       errorHandler: plumberErrorHandler
@@ -195,7 +195,7 @@ gulp.task('watch', ['browserSync'], function () {
   gulp.watch(config.srcRoot + '**/[^!]*.jade', ['jade-watch']);
   gulp.watch(config.srcRoot + 'js/**/[^!]*.js', ['js-watch']);
   gulp.watch(config.srcRoot + 'templates/**/[^!]*.hbs', ['handlebars-watch']);
-  gulp.watch(config.srcRoot + 'styles/**/[^!]*.styl', ['stylus']);
+  gulp.watch(config.srcRoot + 'styles/**/[^!]*.styl', ['styles:custom']);
 });
 
 /**
@@ -213,8 +213,8 @@ gulp.task('build', function (cb) {
   $.runSequence('clean', [
     'jade',
     'imageOptim',
-    'stylus',
-    'css',
+    'styles:vendor',
+    'styles:custom',
     'js',
     'json',
     'html',
