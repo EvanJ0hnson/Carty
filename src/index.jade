@@ -93,14 +93,45 @@ html
     #usage.section
       .section__content-wrapper
         .section__title Usage
-        pre.highlight__wrapper
-          code
-            | /* app.js */
-            | import {Cart} from 'cart';
-            br
-            br
-            | const cartInstance = new Cart('cart-widjet');
-            | cartInstance.init();
+        .grid__row
+          .grid__column--1-2
+            pre.highlight__wrapper
+              code
+                | /* app.js */
+                | import {Cart} from 'cart';
+                br
+                br
+                | const cartInstance = new Cart('cart-widjet');
+                | cartInstance.init();
+            pre.highlight__wrapper
+              - var htmlExample = "<div id=\"cart-widjet\" class=\"cart-widjet__wrapper\">\n <div class=\"cart-widjet__body\">\n  <div><svg>…</svg></div>\n  <div class=\"cart-widjet__data\">\n  </div>\n </div>\n</div>"
+              code
+                | /* Cart widjet markup */
+              code.xml
+                | #{htmlExample}
+          .grid__column--1-2
+            pre.highlight__wrapper
+              code.
+                /* data.json */
+                [{
+                  "id": "001",
+                  "category": "vinyl",
+                  "categoryTitle": "Vinyl",
+                  "photo": "images/…/cover_1.jpg",
+                  "title": "Disturbed: Asylum",
+                  "available": true,
+                  "description": "Disturbed began…",
+                  "price": "26.98"
+                }, {
+                  "id": "002",
+                  "category": "vinyl",
+                  "categoryTitle": "Vinyl",
+                  "photo": "images/…/cover-2.jpg",
+                  "title": "Mumford And Sons: Wilder Mind Lp",
+                  "available": false,
+                  "description": "This new album marks…",
+                  "price": "29.65"
+                }, …]
     #download.section
     footer.section.section-footer
       .section__content-wrapper
