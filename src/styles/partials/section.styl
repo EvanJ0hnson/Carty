@@ -27,6 +27,24 @@
   font-size: 2rem;
 }
 
+.section__link {
+  display: inline-block;
+  
+  padding: 0 0 2px 0;
+  
+  border-bottom: 1px solid;
+  border-bottom-color: $clrTransparent90;
+  
+  color: inherit;
+  text-decoration: none;
+  
+  transition: border-bottom-color .25s ease;
+  
+  &:hover {
+    border-bottom-color: currentColor;
+  }
+}
+
 .section-top {
   display: flex;
   justify-content: center;
