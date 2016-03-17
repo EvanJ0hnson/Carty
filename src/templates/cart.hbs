@@ -1,34 +1,30 @@
 <table class="cart-table">
   <thead>
     <tr class="cart-table__caption">
-      <td></td>
-      <td>Название</td>
-      <td>Цена</td>
-      <td>Количество</td>
-      <td>Стоимость</td>
+      <th>Title</th>
+      <th>Amount</th>
+      <th>Price</th>
     </tr>
   </thead>
   <tbody>
     {{#each order}}
     <tr class="cart-table__row">
-      <td>{{number}}</td>
       <td>{{title}}</td>
-      <td>{{price}}</td>
       <td>
-        <button id="CartItemDecrease{{id}}">-</button>
-        <span class="cart-table__item-amount">{{count}}</span>
-        <button id="CartItemIncrease{{id}}">+</button>
+        <button id="CartItemDecrease{{id}}" class="btn cart-table__btn">-</button>
+        <span class="u-vertical-align--middle">{{count}}</span>
+        <button id="CartItemIncrease{{id}}" class="btn cart-table__btn">+</button>
       </td>
-      <td>{{sum}}</td>
+      <td>${{price}}</td>
       <td>
-        <button id="CartItemRemove{{id}}">x</button>
+        <button id="CartItemRemove{{id}}" class="btn cart-table__btn">x</button>
       </td>
     </tr>
     {{/each}}
     <tr class="cart-table__row">
-      <td colspan="3"></td>
-      <td>Сумма:</td>
-      <td colspan="2">{{total}}</td>
+      <td></td>
+      <td>Total:</td>
+      <td colspan="2">${{total}}</td>
     </tr>
   </tbody>
 </table>
