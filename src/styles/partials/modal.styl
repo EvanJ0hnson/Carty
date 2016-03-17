@@ -20,12 +20,20 @@
   
   margin: 3rem auto 0 auto;
   padding: 0 1.5rem;
+  
+  @media ({$bpMaxW320}) {
+    padding: 0;
+  }
 }
 
 .modal__content {
   padding: 1rem; 
   
   background-color: $clrWhite;
+  
+  @media ({$bpMaxW320}) {
+    padding: 1rem 0;
+  }
 }
 
 .modal__btn-close {
@@ -51,5 +59,11 @@
 
   &:hover {
     opacity: 1;
+  }
+  
+  @media ({$bpMaxW320}) {
+    top: -3rem;
+    
+    padding: 1rem;
   }
 }
