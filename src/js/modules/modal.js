@@ -1,7 +1,6 @@
 /**
  * modalWindow
  */
-// import loader from './loader';
 import * as $u from './utilites';
 
 import hbsModal from '../../templates/modal.hbs';
