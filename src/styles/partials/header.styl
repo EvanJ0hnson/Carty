@@ -1,0 +1,90 @@
+/**
+ * Header
+ */
+.section-header {  
+  padding: 0 1rem 4rem 1rem;
+  
+  line-height: 1;
+  
+  background: linear-gradient(to top, $clrViolet, $clrBlue--1);
+}
+
+.section-header__wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  
+  padding-top: 2rem;
+  
+  color: $clrWhite--1;
+}
+
+.header__logo {
+  margin-right: 2rem;
+  
+  & > svg {
+    $size = 256px;
+
+    width: $size;
+    height: @width;
+
+    @media ({$bpMaxW480}) {
+      $size = 192px;
+      
+      width: $size;
+      height: @width;
+    }
+    
+    @media ({$bpMaxW692}) {
+      @media ({$bpMaxH411}) {
+        $size = 144px;
+        
+        width: $size;
+        height: @width;
+      }
+    }
+  }
+  
+  @media ({$bpMaxW692}) {
+    margin-bottom: 3rem;
+    
+    @media ({$bpMaxH411}) {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.header__text {
+  margin-bottom: 1em;
+  
+  font-size: 1rem;
+  
+  @media ({$bpMaxW480}) {
+    font-size: .75rem;
+  }
+  
+  @media ({$bpMaxW692}) {
+    @media ({$bpMaxH411}) {
+      font-size: .7rem;
+    }
+  }
+}
+
+.header__text-sub {
+  margin-bottom: -1em;
+  
+  text-align: right;
+}
+
+.header__text-main {
+  font-family: Corben, cursive;
+  font-size: 6em;
+}

@@ -11,18 +11,19 @@ html
     link(rel='stylesheet', href='css/vendor.min.css')
     link(rel='stylesheet', href='css/bundle.min.css')
   body
-    .section.section-top
-      nav.top-menu
-        button.btn.top-menu__btn.js-toggleNav MENU
-        ul.top-menu__list.js-menuList
-          for val in navLinks
-            li: a.top-menu__link(href="##{val.id}") #{val.title}
-      .title-area
-        .title-area__logo
-          include ./svg/shopping-basket.svg
-        .title-area__text
-          .title-area__text-sub Simple cart for your website
-          .title-area__text-main Hamper
+    .section.section-header
+      .section__content-wrapper.section-header__wrapper
+        nav.top-menu
+          button.btn.top-menu__btn.js-toggleNav MENU
+          ul.top-menu__list.js-menuList
+            for val in navLinks
+              li: a.top-menu__link(href="##{val.id}") #{val.title}
+        .header
+          .header__logo
+            include ./svg/shopping-basket.svg
+          .header__text
+            .header__text-sub Simple cart for your website
+            .header__text-main Hamper
     #description.section
       .section__content-wrapper
         .section__title
