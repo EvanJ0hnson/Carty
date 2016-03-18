@@ -80,3 +80,12 @@ export function removeClass(element, className) {
 export function addClass(element, className) {
   element.classList.add(className);
 }
+
+/**
+ * Toggle class
+ * @param  {DOM Node} element   Dom element
+ * @param  {String} className Class name
+ */
+export function toggleClass(element, className) {
+  element.classList.toggle(className);
+}
