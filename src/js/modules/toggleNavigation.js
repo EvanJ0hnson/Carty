@@ -10,4 +10,10 @@ export function toggleNavigationBar() {
   $btnToggleNav.addEventListener('click', () => {
     $u.toggleClass($menuList, 'u-display--flex');
   });
+
+  $menuList.addEventListener('click', (event) => {
+    if (event.target.tagName === 'A') {
+      $u.toggleClass($menuList, 'u-display--flex');
+    }
+  });
 }
