@@ -13,7 +13,8 @@ html
   body
     .section.section-top
       nav.top-menu
-        ul.top-menu__list
+        button.btn.top-menu__btn.js-toggleNav MENU
+        ul.top-menu__list.js-menuList
           for val in navLinks
             li: a.top-menu__link(href="##{val.id}") #{val.title}
       .title-area
