@@ -21,25 +21,25 @@ function Cart(id) {
   this._data = null;
 
   /**
-   * Object that contains Cart widjet
+   * Object that contains Cart widget
    * @type {DOM Node}
    * @private
    */
-  this._widjetObj = null;
+  this._widgetObj = null;
 
   /**
-   * Object that contains Cart widjet data
+   * Object that contains Cart widget data
    * @type {DOM Node}
    * @private
    */
-  this._widjetData = null;
+  this._widgetData = null;
 
   /**
-   * ID of the widjet object
+   * ID of the widget object
    * @type {String}
    * @private
    */
-  this._widjetID = id;
+  this._widgetID = id;
 
   /**
    * Cart events
@@ -91,7 +91,7 @@ function _updateView() {
   const modal = $u.getElement('#modal');
   const cart = _renderTemplate.call(this);
 
-  this._widjetData.innerHTML = this.getItemsCount();
+  this._widgetData.innerHTML = this.getItemsCount();
 
   if (modal) {
     modalWindow.update(cart);
@@ -105,7 +105,7 @@ function _updateView() {
  * @private
  */
 function _saveState() {
-  localStorage.setItem(this._widjetID, JSON.stringify(this._data));
+  localStorage.setItem(this._widgetID, JSON.stringify(this._data));
 }
 
 /**
@@ -279,10 +279,10 @@ Cart.prototype = {
    * @public
    */
   init() {
-    this._widjetObj = $u.getElement('#' + this._widjetID);
-    this._widjetData = $u.getChild(this._widjetObj, '.cart-widjet__data');
+    this._widgetObj = $u.getElement('#' + this._widgetID);
+    this._widgetData = $u.getChild(this._widgetObj, '.cart-widget__data');
 
-    this._data = _loadState(this._widjetID);
+    this._data = _loadState(this._widgetID);
 
     /**
      * Register events
@@ -290,12 +290,12 @@ Cart.prototype = {
     _customEventPolyfill();
 
     this._events = {
-      stateChanged: new CustomEvent('stateChanged' + this._widjetID, {
+      stateChanged: new CustomEvent('stateChanged' + this._widgetID, {
         detail: {name: 'stateChanged'}
       }),
     };
 
-    document.addEventListener('stateChanged' + this._widjetID, () => {
+    document.addEventListener('stateChanged' + this._widgetID, () => {
       _saveState.call(this);
       _updateView.call(this);
     });
@@ -305,7 +305,7 @@ Cart.prototype = {
 
     document.dispatchEvent(this._events.stateChanged);
 
-    this._widjetObj.addEventListener('click', () => {
+    this._widgetObj.addEventListener('click', () => {
       this.showWindow();
     });
 

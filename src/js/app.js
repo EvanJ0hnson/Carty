@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const currentState = window.location.pathname;
   switch (currentState) {
     case '/':
-      const cartInstance = new Cart('cart-widjet');
+      const cartInstance = new Cart('cart-widget');
       cartInstance.init();
       hljs.initHighlighting();
       toggleNavigationBar();
