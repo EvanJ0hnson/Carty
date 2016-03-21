@@ -93,7 +93,7 @@
   position: relative;
   
   width: $size;
-  height: $size;
+  height: @width;
 
   cursor: pointer;
   border-radius: 100%;
@@ -107,6 +107,10 @@
   &:hover {
     color: $clrViolet;
     box-shadow: 0 3px 7px $clrTransparent70;
+    
+    .cart-widget__data {
+      color: currentColor;
+    }
   }
   
   & > svg {
@@ -123,15 +127,18 @@
   right: 10px;
   
   width: $size;
-  height: $size;
+  height: @width;
 
   font-family: sans-serif;
   font-size: .75rem;
   text-align: center;
-
+  
+  color: currentColor;
   background-color: $clrWhite;
 
   border-radius: 100%;
+  
+  // See .cart-widget__body to :hover state
 } 
  
 /**
