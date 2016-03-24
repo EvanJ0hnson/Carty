@@ -341,11 +341,23 @@ Cart.prototype = {
      * Events
      */
 
-    $u.getJSON('/data/cartData.json', (items) => {
-      this._coreData = items;
+    /**
+     * Load core data
+     * (temporary init solution)
+     * (need to check if new version is available)
+     */
+    this._coreData = JSON.parse(localStorage.getItem('hmpCoreData')) || [];
 
-      localStorage.setItem('hmpCoreData', JSON.stringify(items));
-    });
+    if (!this._coreData.length) {
+      $u.getJSON('/data/cartData.json', (items) => {
+        this._coreData = items;
+
+        localStorage.setItem('hmpCoreData', JSON.stringify(items));
+      });
+    }
+    /**
+     * Load core data
+     */
   },
 };
 
