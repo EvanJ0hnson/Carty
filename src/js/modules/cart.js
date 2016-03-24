@@ -252,6 +252,17 @@ Cart.prototype = {
   },
 
   /**
+   * Get Cart item by id
+   * @return {Object} Cart item
+   * @public
+   */
+  getItem(id) {
+    const itemIndex = _findItem.call(this, id);
+
+    return this._data[itemIndex];
+  },
+
+  /**
    * Get Cart items
    * @return {Array} Cart items
    * @public
