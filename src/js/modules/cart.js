@@ -65,21 +65,28 @@ function _renderTemplate() {
  * @private
  */
 function _assignEvents() {
-  this._data.forEach((item) => {
-    const itemId = item.id;
-    const itemDecrease = $u.getElement('#CartItemDecrease' + itemId);
-    const itemIncrease = $u.getElement('#CartItemIncrease' + itemId);
-    const itemRemove = $u.getElement('#CartItemRemove' + itemId);
+  const $modalWrapper = $u.getElement('.modal__wrapper');
 
-    itemDecrease.addEventListener('click', () => {
-      this.decreaseItemAmount(itemId);
-    });
-    itemIncrease.addEventListener('click', () => {
-      this.addToCart(item);
-    });
-    itemRemove.addEventListener('click', () => {
-      this.removeFromCart(itemId);
-    });
+  $modalWrapper.addEventListener('click', (event) => {
+    const eventTarget = event.target;
+    const id = eventTarget.getAttribute('data-cartItemId');
+    const action = eventTarget.getAttribute('data-cartActionType');
+
+    if (!id) return;
+
+    switch (action) {
+      case 'itemDecrease':
+        this.decreaseItemAmount(id);
+        break;
+      case 'itemIncrease':
+        this.addToCart({id});
+        break;
+      case 'itemRemove':
+        this.removeFromCart(id);
+        break;
+      default:
+        break;
+    }
   });
 }
 
@@ -95,8 +102,6 @@ function _updateView() {
 
   if (modal) {
     modalWindow.update(cart);
-
-    _assignEvents.call(this);
   }
 }
 
@@ -284,30 +289,30 @@ Cart.prototype = {
 
     this._data = _loadState(this._widgetID);
 
-    /**
-     * Register events
-     */
-    _customEventPolyfill();
-
     this._events = {
       stateChanged: new CustomEvent('stateChanged' + this._widgetID, {
         detail: {name: 'stateChanged'}
       }),
     };
 
+    /**
+     * Register events
+     */
+    _customEventPolyfill();
+
     document.addEventListener('stateChanged' + this._widgetID, () => {
       _saveState.call(this);
       _updateView.call(this);
     });
-    /**
-     * Events
-     */
-
-    document.dispatchEvent(this._events.stateChanged);
 
     this._widgetObj.addEventListener('click', () => {
       this.showWindow();
     });
+
+    document.dispatchEvent(this._events.stateChanged);
+    /**
+     * Events
+     */
 
     /** FOR DEVELOPMENT ONLY */
     $u.getJSON('/data/cartData.json', (items) => {

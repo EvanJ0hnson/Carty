@@ -11,13 +11,13 @@
     <tr class="cart-table__row">
       <td>{{title}}</td>
       <td class="cart-table__col-counter">
-        <button id="CartItemDecrease{{id}}" class="btn cart-table__btn">-</button>
+        <button id="cartItemAction" type="button" data-cartItemId="{{id}}" data-cartActionType="itemDecrease" class="btn cart-table__btn">-</button>
         <span class="u-vertical-align--middle">{{count}}</span>
-        <button id="CartItemIncrease{{id}}" class="btn cart-table__btn">+</button>
+        <button id="cartItemAction" type="button" data-cartItemId="{{id}}" data-cartActionType="itemIncrease" class="btn cart-table__btn">+</button>
       </td>
       <td>${{price}}</td>
       <td>
-        <button id="CartItemRemove{{id}}" class="btn cart-table__btn">x</button>
+        <button id="cartItemAction" type="button" data-cartItemId="{{id}}" data-cartActionType="itemRemove" class="btn cart-table__btn">x</button>
       </td>
     </tr>
     {{/each}}
