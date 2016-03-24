@@ -13,6 +13,8 @@ import hbsCart from '../../templates/cart.hbs';
  * @public
  */
 function Cart(id) {
+  this._coreData = null;
+
   /**
    * Cart items
    * @type {Array}
@@ -93,9 +95,9 @@ function _renderTemplate() {
  * @private
  */
 function _assignEvents() {
-  const $modalWindow = $u.getElement('#modal');
+  const $body = $u.getElement('body');
 
-  $modalWindow.addEventListener('click', (event) => {
+  $body.addEventListener('click', (event) => {
     const eventTarget = event.target;
     const id = eventTarget.getAttribute('data-cartItemId');
     const action = eventTarget.getAttribute('data-cartActionType');
@@ -107,7 +109,10 @@ function _assignEvents() {
         this.decreaseItemAmount(id);
         break;
       case 'itemIncrease':
-        this.addToCart({id});
+        this.increaseItemAmount(id);
+        break;
+      case 'itemAdd':
+        this.addToCart(id);
         break;
       case 'itemRemove':
         this.removeFromCart(id);
@@ -116,6 +121,21 @@ function _assignEvents() {
         break;
     }
   });
+}
+
+/**
+ * Get _coreData item by id
+ * @return {Object} Cart item
+ * @private
+ */
+function _getItem(id) {
+  let requestedItem = null;
+  const hasItem = this._coreData.some((item) => {
+    requestedItem = item;
+    return item.id === id;
+  });
+
+  return (hasItem ? requestedItem : null);
 }
 
 /**
@@ -157,7 +177,7 @@ function _loadState(id) {
  * @return {Number | null}    Item index or null, if not found
  * @private
  */
-function _findItem(id) {
+function _getItemIndex(id) {
   let itemIndex = null;
   const hasOrderItem = this._data.some((item, index) => {
     itemIndex = index;
@@ -193,29 +213,25 @@ function _customEventPolyfill() {
 
 Cart.prototype = {
   /**
-   * Add new item to cart or increase amout of existing one
+   * Add new item to cart
    * @param  {String} id    ID
-   * @param  {String} name  Item name
-   * @param  {Number} price Item price
    * @public
    */
-  addToCart(item) {
+  addToCart(id) {
     let itemIndex = null;
-    const orderItem = Object.assign({},
-      item,
+    const itemData = _getItem.call(this, id);
+    const item = Object.assign({},
+      itemData,
       {
         count: 1
       });
 
-    itemIndex = _findItem.call(this, orderItem.id);
+    itemIndex = _getItemIndex.call(this, id);
 
-    if (itemIndex !== null) {
-      this._data[itemIndex].count++;
-    } else {
-      this._data.push(orderItem);
+    if (itemIndex === null) {
+      this._data.push(item);
+      document.dispatchEvent(this._events.stateChanged);
     }
-
-    document.dispatchEvent(this._events.stateChanged);
   },
 
   /**
@@ -224,9 +240,24 @@ Cart.prototype = {
    * @public
    */
   removeFromCart(id) {
-    const itemIndex = _findItem.call(this, id);
+    const itemIndex = _getItemIndex.call(this, id);
 
     this._data.splice(itemIndex, 1);
+
+    document.dispatchEvent(this._events.stateChanged);
+  },
+
+  /**
+   * Increase amout of target item
+   * @param  {String} id    ID
+   * @public
+   */
+  increaseItemAmount(id) {
+    let itemIndex = null;
+
+    itemIndex = _getItemIndex.call(this, id);
+
+    this._data[itemIndex].count++;
 
     document.dispatchEvent(this._events.stateChanged);
   },
@@ -238,7 +269,7 @@ Cart.prototype = {
    * @public
    */
   decreaseItemAmount(id) {
-    const itemIndex = _findItem.call(this, id);
+    const itemIndex = _getItemIndex.call(this, id);
 
     if (itemIndex !== null) {
       if (this._data[itemIndex].count === 1) {
@@ -249,17 +280,6 @@ Cart.prototype = {
 
       document.dispatchEvent(this._events.stateChanged);
     }
-  },
-
-  /**
-   * Get Cart item by id
-   * @return {Object} Cart item
-   * @public
-   */
-  getItem(id) {
-    const itemIndex = _findItem.call(this, id);
-
-    return this._data[itemIndex];
   },
 
   /**
@@ -288,8 +308,6 @@ Cart.prototype = {
     const cart = _renderTemplate.call(this);
 
     modalWindow.open(cart);
-
-    _assignEvents.call(this);
   },
 
   /**
@@ -312,6 +330,7 @@ Cart.prototype = {
      * Register events
      */
     _customEventPolyfill();
+    _assignEvents.call(this);
 
     document.addEventListener('stateChanged' + this._widgetID, () => {
       _saveState.call(this);
@@ -327,19 +346,11 @@ Cart.prototype = {
      * Events
      */
 
-    /** FOR DEVELOPMENT ONLY */
     $u.getJSON('/data/cartData.json', (items) => {
-      items.forEach((item) => {
-        const elementTitle = '#cartItemAdd' + item.id;
-        const element = $u.getElement(elementTitle);
-        if (element) {
-          element.addEventListener('click', () => {
-            this.addToCart(item);
-          });
-        }
-      });
+      this._coreData = items;
+
+      localStorage.setItem('hmpCoreData', JSON.stringify(items));
     });
-    /** FOR DEVELOPMENT ONLY */
   },
 };
 
