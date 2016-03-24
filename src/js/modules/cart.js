@@ -271,13 +271,8 @@ Cart.prototype = {
   decreaseItemAmount(id) {
     const itemIndex = _getItemIndex.call(this, id);
 
-    if (itemIndex !== null) {
-      if (this._data[itemIndex].count === 1) {
-        this._data.splice(itemIndex, 1);
-      } else {
-        this._data[itemIndex].count -= 1;
-      }
-
+    if (this._data[itemIndex].count > 1) {
+      this._data[itemIndex].count -= 1;
       document.dispatchEvent(this._events.stateChanged);
     }
   },
