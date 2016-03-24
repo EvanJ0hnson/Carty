@@ -50,6 +50,34 @@ function Cart(id) {
 }
 
 /**
+ * Get current state
+ * @return {Object} Current state
+ * @private
+ */
+function _getCartState() {
+  let total = 0;
+  let counter = 0;
+  let sum = 0;
+  const order = [];
+
+  this._data.forEach((item) => {
+    counter++;
+    sum = item.price * item.count;
+    total += item.price * item.count;
+
+    order.push(Object.assign({}, {
+      number: counter,
+      sum,
+    },
+    item));
+  });
+
+  total = total.toFixed(2);
+
+  return Object.assign({}, {order, total});
+}
+
+/**
  * Render Handlebars template
  * @return {String} String with HTML template
  * @private
@@ -120,34 +148,6 @@ function _saveState() {
  */
 function _loadState(id) {
   return JSON.parse(localStorage.getItem(id)) || [];
-}
-
-/**
- * Get current state
- * @return {Object} Current state
- * @private
- */
-function _getCartState() {
-  let total = 0;
-  let counter = 0;
-  let sum = 0;
-  const order = [];
-
-  this._data.forEach((item) => {
-    counter++;
-    sum = item.price * item.count;
-    total += item.price * item.count;
-
-    order.push(Object.assign({}, {
-      number: counter,
-      sum,
-    },
-    item));
-  });
-
-  total = total.toFixed(2);
-
-  return Object.assign({}, {order, total});
 }
 
 /**
