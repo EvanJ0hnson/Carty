@@ -145,6 +145,8 @@ function _getCartState() {
     item));
   });
 
+  total = total.toFixed(2);
+
   return Object.assign({}, {order, total});
 }
 
