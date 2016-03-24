@@ -93,9 +93,9 @@ function _renderTemplate() {
  * @private
  */
 function _assignEvents() {
-  const $modalWrapper = $u.getElement('.modal__wrapper');
+  const $modalWindow = $u.getElement('#modal');
 
-  $modalWrapper.addEventListener('click', (event) => {
+  $modalWindow.addEventListener('click', (event) => {
     const eventTarget = event.target;
     const id = eventTarget.getAttribute('data-cartItemId');
     const action = eventTarget.getAttribute('data-cartActionType');
