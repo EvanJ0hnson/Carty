@@ -1,0 +1,8 @@
+{{#each coreData}}
+<div class="cart-item">
+  <div class="cart-item__title">{{title}}</div><img src="{{photo}}" alt="{{title}}" class="cart-item__photo"/>
+  <div class="cart-item__available">{{available}}</div>
+  <div class="cart-item__price">${{price}}</div>
+  <button type="button" id="cartItemAction" data-cartItemId="{{id}}" data-cartActionType="itemAdd" class="cart-item__add">Add To Cart</button>
+</div>
+{{/each}}

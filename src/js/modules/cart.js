@@ -5,6 +5,7 @@ import * as modalWindow from './modal';
 import * as $u from './utilites';
 
 import hbsCart from '../../templates/cart.hbs';
+import hbsCartItem from '../../templates/cartItem.hbs';
 
 /**
  * Cart constructor
@@ -80,7 +81,7 @@ function _getCartState() {
 }
 
 /**
- * Render Handlebars template
+ * Render Handlebars template: Cart
  * @return {String} String with HTML template
  * @private
  */
@@ -88,6 +89,19 @@ function _renderTemplate() {
   const state = _getCartState.call(this);
 
   return hbsCart(state);
+}
+
+/**
+ * Render Handlebars template: Cart Items
+ * @return {String} String with HTML template
+ * @private
+ */
+function _renderCartItems() {
+  const coreData = this._coreData;
+  const $cartItems = $u.getElement('.cart-items');
+  const hbsCartItems = hbsCartItem(Object.assign({}, {coreData}));
+
+  $u.appendString($cartItems, hbsCartItems);
 }
 
 /**
@@ -348,9 +362,13 @@ Cart.prototype = {
      */
     this._coreData = JSON.parse(localStorage.getItem('hmpCoreData')) || [];
 
-    if (!this._coreData.length) {
+    if (this._coreData.length) {
+      _renderCartItems.call(this);
+    } else {
       $u.getJSON('/data/cartData.json', (items) => {
         this._coreData = items;
+
+        _renderCartItems.call(this);
 
         localStorage.setItem('hmpCoreData', JSON.stringify(items));
       });
