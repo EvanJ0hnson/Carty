@@ -1,4 +1,4 @@
-- var navLinks = [{id:"description", title:"Description"}, {id:"download", title:"Download"}, {id:"example", title:"Example"}, {id:"usage", title:"Usage"}]
+- var navLinks = [{id:"description", title:"Description"}, {id:"example", title:"Example"}, {id:"usage", title:"Usage"}, {id:"download", title:"Download"}]
 
 doctype html
 html
@@ -34,13 +34,13 @@ html
           | Meet Hamper.
         ul.features-list
           li.features-list__item Built with ES6 (Babel)
-          li.features-list__item Connects as a module
+          li.features-list__item Modular structure
           li.features-list__item Pure JS (No jQuery or another dependencies)
           li.features-list__item Free to use and update
+          li.features-list__item Just use Hamper as a template for your website
           li.features-list__item
             | Check it on  
-            a.section__link(href="//github.com/EvanJ0hnson/Hamper/blob/master/src/js/modules/cart.js", target="_blank") GitHub
-            |  (work in progress)
+            a.section__link(href="//github.com/EvanJ0hnson/Hamper/", target="_blank") GitHub
     #example.section
       .section__content-wrapper
         .section__title Example
@@ -111,7 +111,7 @@ html
                 | const cartInstance = new Cart('cart-widjet');
                 | cartInstance.init();
             pre.highlight__wrapper
-              - var htmlExample = "<div id=\"cart-widjet\" class=\"cart-widjet__wrapper\">\n <div class=\"cart-widjet__body\">\n  <div><svg>…</svg></div>\n  <div class=\"cart-widjet__data\">\n  </div>\n </div>\n</div>"
+              - var htmlExample = "<div id=\"cart-widjet\" class=\"cart-widjet__wrapper\">\n <div class=\"cart-widjet__body\">\n  <svg>…</svg>\n  <div class=\"cart-widjet__data\">\n  </div>\n </div>\n</div>"
               code
                 | /* Cart widjet markup */
               code.xml
@@ -143,8 +143,8 @@ html
       .section__content-wrapper
         .section__title Download
         .section__text
-          | Work in progress, follow the link to see: 
-          a.section__link(href="//github.com/EvanJ0hnson/Hamper/blob/master/src/js/modules/cart.js", target="_blank") cart.js
+          | Follow the link to see: 
+          a.section__link(href="//github.com/EvanJ0hnson/Hamper/", target="_blank") HamperJS
     footer.section.section-footer
       .section__content-wrapper
         .grid__row
