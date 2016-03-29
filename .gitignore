@@ -1,11 +1,12 @@
-# Project Files
+# Project
 .idea
+*.sublime-workspace
 bower_components
 node_modules
 www
-.htaccess
-*.sublime-workspace
 build
+.htaccess
+ftp_config.json
 
 # Windows image file caches
 Thumbs.db
@@ -50,5 +51,3 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
-
-ftp_config.json
