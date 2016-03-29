@@ -12,7 +12,7 @@ var browserSyncInstance = $.browserSync.create();
 var config = {
   buildRoot: './build/',
   srcRoot: './src/',
-  proxyAdress: 'http://carty.dev/',
+  proxyAdress: 'http://hamper.dev/',
   vendorCSS: [
     './node_modules/reset.css/reset.css',
   ],
