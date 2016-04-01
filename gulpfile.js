@@ -155,7 +155,7 @@ gulp.task('stylelint', function () {
 });
 
 gulp.task('jade', function () {
-  gulp.src('./src/**.jade')
+  return gulp.src('./src/**.jade')
     .pipe($.plumber({
       errorHandler: plumberErrorHandler
     }))
@@ -165,6 +165,19 @@ gulp.task('jade', function () {
 
 gulp.task('jade-watch', ['jade'], function () {
   browserSyncInstance.reload();
+});
+
+gulp.task('svgo', function () {
+  return gulp.src('./src/svg/_origin/**/*')
+    .pipe($.plumber({
+      errorHandler: plumberErrorHandler
+    }))
+    .pipe($.svgmin())
+    .pipe(gulp.dest(config.srcRoot + 'svg/'));
+});
+
+gulp.task('svgo-watch', function (callback) {
+  $.runSequence('svgo', 'jade-watch', callback);
 });
 
 gulp.task('imageOptim', function () {
@@ -192,6 +205,7 @@ gulp.task('photos', function () {
 gulp.task('watch', ['browserSync'], function () {
   gulp.watch(config.srcRoot + 'data/**/[^!]*.json', ['json-watch']);
   gulp.watch(config.srcRoot + '**/[^!]*.jade', ['jade-watch']);
+  gulp.watch(config.srcRoot + 'svg/_origin/[^!]*.svg', ['svgo-watch']);
   gulp.watch(config.srcRoot + 'js/**/[^!]*.js', ['js-watch']);
   gulp.watch(config.srcRoot + 'templates/**/[^!]*.hbs', ['handlebars-watch']);
   gulp.watch(config.srcRoot + 'styles/**/[^!]*.styl', ['styles:custom']);
