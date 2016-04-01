@@ -14,7 +14,6 @@ var config = {
   srcRoot: './src/',
   proxyAdress: 'http://hamper.dev/',
   vendorCSS: [
-    './node_modules/reset.css/reset.css',
   ],
   vendorFonts: [
   ]
@@ -213,7 +212,7 @@ gulp.task('build', function (cb) {
   $.runSequence('clean', [
     'jade',
     'imageOptim',
-    'styles:vendor',
+    // 'styles:vendor',
     'styles:custom',
     'js',
     'json',
