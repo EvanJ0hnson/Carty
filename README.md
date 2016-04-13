@@ -1,4 +1,4 @@
-![alt tag](https://codeship.com/projects/YOUR_PROJECT_UUID/status?branch=master)
+![alt tag](https://codeship.com/projects/4b7b4340-e36a-0133-56b4-0ae7e6ad137a/status?branch=master)
 
 # Hamper
 Simple shopping cart for a website
