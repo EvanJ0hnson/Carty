@@ -3,100 +3,115 @@
 /**
  * Configuration
  */
-var gulp = require('gulp');
-var $ = require('gulp-load-plugins')({
-  pattern: ['*']
-});
+import gulp from'gulp';
+import loadPlugins from 'gulp-load-plugins';
 
-var browserSyncInstance = $.browserSync.create();
-var config = {
+const $ = loadPlugins({pattern: ['*']});
+
+const browserSyncInstance = $.browserSync.create();
+const browserSyncReload = () => browserSyncInstance.reload();
+
+const config = {
   buildRoot: './build/',
   srcRoot: './src/',
   proxyAdress: 'http://hamper.dev/',
-  vendorCSS: [
-  ],
-  vendorFonts: [
-  ]
-};
-
-var plumberErrorHandler = function (error) {
-  console.log(error.toString());
-  $.notify.onError({
-    title: 'Build error',
-    message: 'Plugin: <%= error.plugin %>'
-  })(error);
-  this.emit('end');
+  vendorCSS: [],
+  vendorFonts: [],
 };
 
 $.hbsfy.configure({
-  extensions: ['hbs']
+  extensions: ['hbs'],
 });
-/**
- * Configuration
- */
 
-gulp.task('browserSync', function (cb) {
+const plumberErrorHandler = function peh(error) {
+  console.log(error.toString());
+
+  $.notify.onError({
+    title: 'Build error',
+    message: 'Plugin: <%= error.plugin %>',
+  })(error);
+
+  this.emit('end');
+};
+
+/**
+ * Task: BrowserSync
+ */
+gulp.task('browserSync', (cb) => {
   browserSyncInstance.init({
     proxy: config.proxyAdress,
     open: false,
     notify: false,
-    ghostMode: false
+    ghostMode: false,
   }, cb);
 });
 
-gulp.task('php', function () {
+/**
+ * Task: PHP
+ */
+gulp.task('php', () => {
   return gulp.src(config.srcRoot + '**/[^!]*.php')
     .pipe($.plumber({
-      errorHandler: plumberErrorHandler
+      errorHandler: plumberErrorHandler,
     }))
     .pipe($.htmlmin({
-      collapseWhitespace: true
+      collapseWhitespace: true,
     }))
     .pipe(gulp.dest(config.buildRoot));
 });
 
-gulp.task('php-watch', ['php'], function () {
-  browserSyncInstance.reload();
-});
+/**
+ * Task-Watch: PHP
+ */
+gulp.task('php-watch', ['php'], browserSyncReload);
 
-
-gulp.task('html', function () {
+/**
+ * Task: HTML
+ */
+gulp.task('html', () => {
   return gulp.src(config.srcRoot + '**/[^!]*.html')
     .pipe($.plumber({
-      errorHandler: plumberErrorHandler
+      errorHandler: plumberErrorHandler,
     }))
     .pipe($.htmlmin({
-      collapseWhitespace: true
+      collapseWhitespace: true,
     }))
     .pipe(gulp.dest(config.buildRoot));
 });
 
-gulp.task('html-watch', ['html'], function () {
-  browserSyncInstance.reload();
-});
+/**
+ * Task-Watch: HTML
+ */
+gulp.task('html-watch', ['html'], browserSyncReload);
 
-
-gulp.task('fonts', function () {
+/**
+ * Task: Fonts
+ */
+gulp.task('fonts', () => {
   return gulp.src(config.vendorFonts)
     .pipe($.plumber({
-      errorHandler: plumberErrorHandler
+      errorHandler: plumberErrorHandler,
     }))
     .pipe(gulp.dest(config.buildRoot + 'fonts/'));
 });
 
-gulp.task('json', function () {
+/**
+ * Task: JSON
+ */
+gulp.task('json', () => {
   return gulp.src(config.srcRoot + '**/[^!]*.json')
     .pipe($.plumber({
-      errorHandler: plumberErrorHandler
+      errorHandler: plumberErrorHandler,
     }))
     .pipe(gulp.dest(config.buildRoot));
 });
 
-gulp.task('json-watch', ['json'], function () {
-  browserSyncInstance.reload();
-});
+gulp.task('json-watch', ['json'], browserSyncReload);
 
-gulp.task('js', function () {
+/**
+ * Task: JavaScript
+ */
+gulp.task('js', () => {
   return $.browserify(config.srcRoot + 'js/app.js')
     .transform($.babelify)
     .transform($.hbsfy)
@@ -107,30 +122,38 @@ gulp.task('js', function () {
     .pipe(gulp.dest(config.buildRoot + 'js/'));
 });
 
-gulp.task('js-watch', ['js'], function () {
-  browserSyncInstance.reload();
-});
+/**
+ * Task-Watch: JavaScript
+ */
+gulp.task('js-watch', ['js'], browserSyncReload);
 
-gulp.task('handlebars-watch', ['js'], function () {
-  browserSyncInstance.reload();
-});
+/**
+ * Task-Watch: Handlebars
+ */
+gulp.task('handlebars-watch', ['js'], browserSyncReload);
 
-gulp.task('styles:vendor', function () {
+/**
+ * Task: Styles.vendor
+ */
+gulp.task('styles:vendor', () => {
   return gulp.src(config.vendorCSS)
     .pipe($.plumber({
-      errorHandler: plumberErrorHandler
+      errorHandler: plumberErrorHandler,
     }))
     .pipe($.concat('vendor.min.css'))
     .pipe($.postcss([
-      $.cssnano({safe: true})
+      $.cssnano({safe: true}),
     ]))
     .pipe(gulp.dest(config.buildRoot + 'css/'));
 });
 
-gulp.task('styles:custom', function () {
+/**
+ * Task: Styles.custom
+ */
+gulp.task('styles:custom', () => {
   return gulp.src(config.srcRoot + 'styles/bundle.styl')
     .pipe($.plumber({
-      errorHandler: plumberErrorHandler
+      errorHandler: plumberErrorHandler,
     }))
     .pipe($.stylus())
     .pipe($.concat('bundle.min.css'))
@@ -142,10 +165,13 @@ gulp.task('styles:custom', function () {
     .pipe(browserSyncInstance.stream());
 });
 
-gulp.task('stylelint', function () {
+/**
+ * Task: Stylelint
+ */
+gulp.task('stylelint', () => {
   return gulp.src(config.srcRoot + 'styles/partials/*.styl')
     .pipe($.plumber({
-      errorHandler: plumberErrorHandler
+      errorHandler: plumberErrorHandler,
     }))
     .pipe($.stylus())
     .pipe($.postcss([
@@ -154,36 +180,49 @@ gulp.task('stylelint', function () {
     ]));
 });
 
-gulp.task('jade', function () {
+/**
+ * Task: Jade
+ */
+gulp.task('jade', () => {
   return gulp.src('./src/**.jade')
     .pipe($.plumber({
-      errorHandler: plumberErrorHandler
+      errorHandler: plumberErrorHandler,
     }))
     .pipe($.jade())
     .pipe(gulp.dest(config.buildRoot));
 });
 
-gulp.task('jade-watch', ['jade'], function () {
-  browserSyncInstance.reload();
-});
+/**
+ * Task-Watch: Jade
+ */
+gulp.task('jade-watch', ['jade'], browserSyncReload);
 
-gulp.task('svgo', function () {
+/**
+ * Task: SVG
+ */
+gulp.task('svgo', () => {
   return gulp.src('./src/svg/_origin/**/*')
     .pipe($.plumber({
-      errorHandler: plumberErrorHandler
+      errorHandler: plumberErrorHandler,
     }))
     .pipe($.svgmin())
     .pipe(gulp.dest(config.srcRoot + 'svg/'));
 });
 
-gulp.task('svgo-watch', function (callback) {
+/**
+ * Task-Watch: SVG
+ */
+gulp.task('svgo-watch', (callback) => {
   $.runSequence('svgo', 'jade-watch', callback);
 });
 
-gulp.task('imageOptim', function () {
+/**
+ * Task: Images
+ */
+gulp.task('imageOptim', () => {
   return gulp.src(config.srcRoot + 'images/**/*')
     .pipe($.plumber({
-      errorHandler: plumberErrorHandler
+      errorHandler: plumberErrorHandler,
     }))
     .pipe($.imagemin({
       progressive: true,
@@ -191,10 +230,13 @@ gulp.task('imageOptim', function () {
     .pipe(gulp.dest(config.buildRoot + 'images/'));
 });
 
-gulp.task('photos', function () {
+/**
+ * Task: Photos
+ */
+gulp.task('photos', () => {
   return gulp.src(config.srcRoot + 'photo/**/*')
     .pipe($.plumber({
-      errorHandler: plumberErrorHandler
+      errorHandler: plumberErrorHandler,
     }))
     .pipe(gulp.dest(config.buildRoot + 'photo/'));
 });
@@ -202,7 +244,7 @@ gulp.task('photos', function () {
 /**
  * Task: Watch
  */
-gulp.task('watch', ['browserSync'], function () {
+gulp.task('watch', ['browserSync'], () => {
   gulp.watch(config.srcRoot + 'data/**/[^!]*.json', ['json-watch']);
   gulp.watch(config.srcRoot + '**/[^!]*.jade', ['jade-watch']);
   gulp.watch(config.srcRoot + 'svg/_origin/[^!]*.svg', ['svgo-watch']);
@@ -214,7 +256,7 @@ gulp.task('watch', ['browserSync'], function () {
 /**
  * Task: Clean
  */
-gulp.task('clean', function (cb) {
+gulp.task('clean', (cb) => {
   $.del.sync(config.buildRoot + '*');
   cb();
 });
@@ -222,7 +264,7 @@ gulp.task('clean', function (cb) {
 /**
  * Task: Build
  */
-gulp.task('build', function (cb) {
+gulp.task('build', (cb) => {
   $.runSequence('clean', [
     'jade',
     'imageOptim',
@@ -237,7 +279,7 @@ gulp.task('build', function (cb) {
 /**
  * Task: Deploy
  *
- * //ftp_config.json
+ * example of ftp_config.json
  *  {
  *    "host": "example.com",
  *    "user": "user",
@@ -245,10 +287,10 @@ gulp.task('build', function (cb) {
  *    "remotePath": "/.../"
  *  }
  */
-gulp.task('deploy', function () {
-  var ftpConfig = require('./ftp_config.json');
+gulp.task('deploy', () => {
+  const ftpConfig = require('./ftp_config.json');
 
-  var ftpConnection = $.vinylFtp.create( {
+  const ftpConnection = $.vinylFtp.create({
     host: ftpConfig.host,
     user: ftpConfig.user,
     password: ftpConfig.pass,
@@ -264,7 +306,7 @@ gulp.task('deploy', function () {
       .pipe($.notify({
         title: 'Hamper deploy',
         message: 'Deployed',
-        onLast: true
+        onLast: true,
       }));
 });
 
