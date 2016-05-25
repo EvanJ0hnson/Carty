@@ -1,7 +1,7 @@
 'use strict';
 
 import {Cart} from './modules/cart';
-import hljs from 'highlight.js';
+import hljs from 'highlight.js/lib/highlight.js';
 import {toggleNavigationBar} from './modules/toggleNavigation';
 
 /**
@@ -20,6 +20,9 @@ const initApp = () => {
   const cartInstance = new Cart('cart-widget');
   cartInstance.init();
 
+  hljs.registerLanguage('xml', require('highlight.js/lib/languages/xml'));
+  hljs.registerLanguage('json', require('highlight.js/lib/languages/json'));
+  hljs.registerLanguage('javascript', require('highlight.js/lib/languages/javascript'));
   hljs.initHighlighting();
 };
 
